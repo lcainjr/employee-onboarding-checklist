@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Onboarding Checklist</title>
+    <style>
+        body {
+            background-color: navy;
+            color: white;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        input, button {
+            margin-top: 10px;
+        }
+    </style>
+    <script>
+        function generateSummary() {
+            let name = document.getElementById("candidateName").value.trim();
+            if (!name) {
+                alert("Please enter the candidate's name.");
+                return;
+            }
+            
+            let i9 = document.getElementById("i9").checked;
+            let benefits = document.getElementById("benefits").checked;
+            let directDeposit = document.getElementById("directDeposit").checked;
+            
+            let message = `Hey ${name},\n\n`;
+            let completedItems = [];
+            let missingItems = [];
+            
+            if (i9) completedItems.push("I-9");
+            else missingItems.push("I-9");
+            
+            if (benefits) completedItems.push("benefits packet");
+            else missingItems.push("benefits packet");
+            
+            if (directDeposit) completedItems.push("direct deposit information");
+            else missingItems.push("direct deposit information");
+            
+            if (completedItems.length > 0) {
+                message += `Thank you for submitting your ${completedItems.join(", ")}!\n\n`;
+            }
+            
+            if (missingItems.length > 0) {
+                message += `We still have not received your ${missingItems.join(", ")}. `;
+                message += "Please complete this as soon as possible to avoid any delays in processing.\n\n";
+            }
+            
+            document.getElementById("summary").innerText = message;
+        }
+    </script>
+</head>
+<body>
+    <h2>Employee Onboarding Checklist</h2>
+    <label for="candidateName">Candidate Name:</label>
+    <input type="text" id="candidateName" placeholder="Enter candidate's full name"><br><br>
+    
+    <input type="checkbox" id="i9"> Candidate submitted I-9 paperwork<br>
+    <input type="checkbox" id="benefits"> Candidate completed benefits packet<br>
+    <input type="checkbox" id="directDeposit"> Candidate provided direct deposit information<br><br>
+    
+    <button onclick="generateSummary()">Generate Summary</button>
+    
+    <h3>Summary:</h3>
+    <pre id="summary"></pre>
+</body>
+</html>
